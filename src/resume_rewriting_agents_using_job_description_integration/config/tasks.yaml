@@ -1,0 +1,24 @@
+---
+extract_resume_information:
+  description: Extract key details such as skills, experiences, and education from the provided resume text {resume_text}.
+  expected_output: Extracted details including skills, experiences, and education
+    from the resume.
+  async_execution: false
+  agent: resume_extractor
+scrape_job_description:
+  description: Use the ScrapeWebsiteTool to extract job requirements, skills, and
+    responsibilities from the job description URL {job_description_url}.
+  expected_output: Extracted job requirements, skills, and responsibilities from the
+    job description.
+  async_execution: false
+  agent: job_description_scraper
+rewrite_resume:
+  description: Analyze the extracted job description and rewrite the resume to emphasize
+    relevant skills and experiences. Ensure the new resume aligns with the job requirements.
+  expected_output: A rewritten resume that highlights relevant skills and experiences
+    based on the job description.
+  async_execution: false
+  agent: resume_rewriter
+  context:
+  - extract_resume_information
+  - scrape_job_description
