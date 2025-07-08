@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CellaNova Tech • Developer Docs</title>
+  <style>
+    /* ===============================
+       Palette & Typography
+    =============================== */
+    :root {
+      --color-bg: #121212;
+      --color-surface: #0d1b2a;
+      --color-text: #E0E0E0;
+      --color-muted: #757575;
+      --color-primary: #1ABC9C;
+      --color-secondary: #FFC107;
+      --color-accent: #FF5722;
+      --radius: 8px;
+      --transition: 0.3s;
+      --font-stack: "Inter", -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --footer-height: 320px;
+    }
+    [data-theme="light"] {
+      --color-bg: #F5F8FA;
+      --color-surface: #FFFFFF;
+      --color-text: #333333;
+      --color-muted: #888888;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-stack);
+      overflow: auto;
+    }
+
+    /* Dark scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg); }
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-muted);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-secondary);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ===============================
+       Header & Nav
+    =============================== */
+    header {
+      background: var(--color-surface);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 36px;
+      margin-right: .75rem;
+    }
+    .logo h1 {
+      font-size: 1.25rem;
+      color: var(--color-primary);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    nav a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+    nav a:hover {
+      color: var(--color-secondary);
+    }
+    #theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      fill: var(--color-text);
+      transition: fill var(--transition);
+      margin-left: 1rem;
+    }
+    #theme-toggle:hover {
+      fill: var(--color-secondary);
+    }
+
+    /* ===============================
+       Main Content
+    =============================== */
+    main {
+      flex: 1;
+      padding: 4rem 2rem 2rem;
+      padding-bottom: calc(var(--footer-height) + 2rem);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .content {
+      max-width: 800px;
+      line-height: 1.6;
+    }
+    .content h2 {
+      color: var(--color-primary);
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    .content p, .content ul {
+      margin-bottom: 1.5rem;
+    }
+    .content ul li {
+      margin-bottom: .5rem;
+    }
+    .content a {
+      color: var(--color-secondary);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .content a:hover {
+      color: var(--color-accent);
+    }
+
+    /* ===============================
+       SVG Sprite
+    =============================== */
+    svg[display="none"] { position: absolute; width: 0; height: 0; }
+
+    /* ===============================
+       Footer
+    =============================== */
+    .site-footer {
+      background: var(--color-surface);
+      color: var(--color-text);
+      padding: 3rem 1rem 1rem;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-bottom: 1rem;
+    }
+    .footer-brand-social {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .brand img { width: 36px; }
+    .brand span {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+    .footer-social svg {
+      width: 24px; height: 24px;
+      fill: var(--color-text);
+      transition: fill var(--transition);
+    }
+    .footer-social a:hover svg {
+      fill: var(--color-secondary);
+    }
+
+    .footer-col h4 {
+      font-size: 1rem;
+      color: var(--color-primary);
+      margin-bottom: .75rem;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .footer-col ul li + li {
+      margin-top: .5rem;
+    }
+    .footer-col ul li a {
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover {
+      color: var(--color-secondary);
+    }
+
+    .footer-legal {
+      grid-column: 1 / -1;
+      text-align: center;
+      font-size: .8rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 1rem;
+      color: var(--color-muted);
+    }
+    .footer-legal a {
+      color: var(--color-muted);
+      text-decoration: none;
+      margin: 0 .5rem;
+      transition: color var(--transition);
+    }
+    .footer-legal a:hover {
+      color: var(--color-secondary);
+    }
+
+    @media(max-width:768px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="./assets/cellanova_logo.png" alt="CellaNova Tech"/>
+      <h1>CellaNova Tech</h1>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it Works</a>
+      <a href="/agents">Agents</a>
+      <a href="/use-cases">Use Cases</a>
+      <a href="/developer-docs">Developer Docs</a>
+      <button id="theme-toggle" aria-label="Toggle theme"></button>
+    </nav>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="content">
+      <h2>Developer Documentation</h2>
+      <p>
+        Integrate CellaNova’s AI agents directly into your applications via our REST API
+        or use our officially supported SDKs and NPM packages.
+      </p>
+      <ul>
+        <li><a href="#">Getting Started Guide</a></li>
+        <li><a href="#">Full API Reference</a></li>
+        <li><a href="#">Authentication & Security</a></li>
+        <li><a href="#">Webhooks & Callbacks</a></li>
+        <li><a href="#">SDKs & Code Samples</a></li>
+      </ul>
+    </div>
+  </main>
+
+  <!-- SVG Sprite -->
+  <svg xmlns="http://www.w3.org/2000/svg" display="none">
+    <!-- LinkedIn -->
+    <symbol id="icon-linkedin" viewBox="0 0 24 24">
+      <path d="M4.98 3.5C4.98 ... Z"/>
+    </symbol>
+    <!-- Instagram -->
+    <symbol id="icon-instagram" viewBox="0 0 24 24">
+      <path d="M12 2.163 ... Z"/>
+    </symbol>
+    <!-- Twitter -->
+    <symbol id="icon-twitter" viewBox="0 0 24 24">
+      <path d="M23.954 4.569 ... Z"/>
+    </symbol>
+    <!-- Moon -->
+    <symbol id="icon-moon" viewBox="0 0 24 24">
+      <path d="M21 12.79 ... Z"/>
+    </symbol>
+    <!-- Sun -->
+    <symbol id="icon-sun" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5"/>
+      <g stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="1"  x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <!-- other rays omitted for brevity -->
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <!-- Brand + Social -->
+      <div class="footer-brand-social">
+        <div class="brand">
+          <img src="./assets/cellanova_logo.png" alt="CellaNova Tech"/>
+          <span>CellaNova Technologies</span>
+        </div>
+        <div class="footer-social">
+          <a href="https://linkedin.com/company/cellanovatech" target="_blank">
+            <svg><use href="#icon-linkedin"/></svg>
+          </a>
+          <a href="https://instagram.com/cellanovatech" target="_blank">
+            <svg><use href="#icon-instagram"/></svg>
+          </a>
+          <a href="https://twitter.com/cellanovatech" target="_blank">
+            <svg><use href="#icon-twitter"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Solutions -->
+      <div class="footer-col">
+        <h4>Solutions</h4>
+        <ul>
+          <li><a href="#">CustomCore</a></li>
+          <li><a href="#">LaunchKit</a></li>
+          <li><a href="#">PrecisionTasks</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/how-it-works">How it Works</a></li>
+          <li><a href="/agents">Agents</a></li>
+          <li><a href="/use-cases">Use Cases</a></li>
+          <li><a href="/developer-docs">Developer Docs</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>Email: <a href="mailto:contactcnt@cellanovatech.com">contactcnt@cellanovatech.com</a></li>
+          <li>5900 Balcones Dr Ste 100</li>
+          <li>Austin, TX 78731-4298</li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer-legal">
+        &copy; 2025 CellaNova Technologies |
+        <a href="#">Terms of Use</a> |
+        <a href="#">Privacy Policy</a> |
+        <a href="#">Cookie Notice</a> |
+        <a href="#">Accessibility Statement</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme toggle logic
+    const toggle = document.getElementById('theme-toggle'),
+          root   = document.documentElement;
+    function refreshIcon() {
+      const light = root.getAttribute('data-theme') === 'light';
+      toggle.innerHTML = light
+        ? '<svg><use href="#icon-sun"/></svg>'
+        : '<svg><use href="#icon-moon"/></svg>';
+    }
+    toggle.addEventListener('click', () => {
+      root.setAttribute('data-theme',
+        root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+      );
+      refreshIcon();
+    });
+    // init
+    refreshIcon();
+  </script>
+</body>
+</html>

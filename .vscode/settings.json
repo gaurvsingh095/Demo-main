@@ -1,0 +1,6 @@
+{
+    "python-envs.pythonProjects": [],
+    "python.analysis.extraPaths": [
+        "./src/resume_rewriting_agents_using_job_description_integration"
+    ]
+}
